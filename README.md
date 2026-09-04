@@ -81,6 +81,21 @@ in the code looks wrong.
 `ReentrantLock` provides the same mutual exclusion without being tied to the monitor, so
 the thread unmounts normally.
 
+### Confirmed on different hardware
+
+CI runs the same benchmarks on a 4-core GitHub runner. The pinning penalty there is not
+7.7× but **24×** — 256.1 ms against 10.7 ms — and that number is the mechanism showing
+its work:
+
+```
+100 tasks × 10 ms ÷ 4 carriers = 250 ms predicted
+                                  256 ms measured
+```
+
+Pinned virtual threads are limited to the carrier count, so the penalty grows as cores
+shrink. The 14-core machine hides most of it; a smaller container exposes it. Code that
+looks fine on a developer laptop can behave very differently on a 2-core pod.
+
 **Version caveat:** this measurement is on **Java 21**. [JEP 491](https://openjdk.org/jeps/491),
 delivered in JDK 24, removes this pinning for `synchronized`. On a newer JDK the gap
 closes. The lesson that survives the version change is the general one: a
