@@ -1,5 +1,10 @@
 # Java Concurrency Benchmarks
 
+[![CI](https://github.com/tahayvz/java-concurrency-benchmarks/actions/workflows/ci.yml/badge.svg)](https://github.com/tahayvz/java-concurrency-benchmarks/actions/workflows/ci.yml)
+[![Java](https://img.shields.io/badge/Java-21-007396?logo=openjdk&logoColor=white)](https://openjdk.org/projects/jdk/21/)
+[![JMH](https://img.shields.io/badge/JMH-1.37-orange)](https://github.com/openjdk/jmh)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Measured comparison of execution strategies for the same workload — sequential, a fixed
 platform-thread pool, virtual threads (Java 21), and parallel streams — under two
 workload types, plus a demonstration of carrier-thread pinning.
